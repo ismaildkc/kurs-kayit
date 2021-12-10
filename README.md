@@ -1,2 +1,2 @@
-# kurs-kayit
-Kurs Kayıt Sistemi
+# Belediye Kurs Kayıt Sistemi
+

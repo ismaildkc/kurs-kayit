@@ -1,0 +1,13 @@
+:root{
+
+ //bs colors
+  --black: #1b1b1b;
+  --white: #ffffff;
+  --whiteOld: #eaf1fc;
+  --gray: #b0b0b0;
+  --yellow: #ffda01;
+
+  // Transitions
+  --fast: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --slow: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
