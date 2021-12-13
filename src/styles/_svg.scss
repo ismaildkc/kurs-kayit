@@ -1,190 +1,182 @@
-.icons-mentor{
-  mask: url('/svg/mentor.svg') no-repeat;
+.icons-search{
+  mask: url('/svg/search.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/mentor.svg') no-repeat !important;
+      background: url('/svg/search.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-rocket{
-  mask: url('/svg/rocket.svg') no-repeat;
+.icons-information{
+  mask: url('/svg/information.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/rocket.svg') no-repeat !important;
+      background: url('/svg/information.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-chess{
-  mask: url('/svg/chess.svg') no-repeat;
+.icons-bagis-yap{
+  mask: url('/svg/bagis-yap.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/chess.svg') no-repeat !important;
+    background: url('/svg/bagis-yap.svg') no-repeat !important;
+    background-size: contain !important;
+  }
+}
+.icons-kampanya-olustur{
+  mask: url('/svg/kampanya-olustur.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    background: url('/svg/kampanya-olustur.svg') no-repeat !important;
+    background-size: contain !important;
+  }
+}
+.icons-hediye-karti-gonder{
+  mask: url('/svg/hediye-karti-gonder.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    background: url('/svg/hediye-karti-gonder.svg') no-repeat !important;
+    background-size: contain !important;
+  }
+}
+.icons-frame{
+  mask: url('/svg/frame.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/frame.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-world{
-  mask: url('/svg/world.svg') no-repeat;
+.icons-play{
+  mask: url('/svg/play.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/world.svg') no-repeat !important;
+      background: url('/svg/play.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-fb{
-  mask: url('/svg/fb.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/fb.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-tw{
-  mask: url('/svg/tw.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/tw.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-ln{
-  mask: url('/svg/in.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/in.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-ig{
-  mask: url('/svg/ig.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/ig.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-logo{
-  mask: url('/svg/logo.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/logo.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-check-circle{
-  mask: url('/svg/check-cirle.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/check-cirle.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-
 .icons-arrow-down{
-  mask: url('/svg/icons-arrow-chevron-down.svg') no-repeat;
+  mask: url('/svg/arrow-down.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/icons-arrow-chevron-down.svg') no-repeat !important;
+      background: url('/svg/arrow-down.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-down{
-  mask: url('/svg/down.svg') no-repeat;
+.icons-back-arrow{
+  mask: url('/svg/back-arrow.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/down.svg') no-repeat !important;
+      background: url('/svg/back-arrow.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-twitter{
+  mask: url('/svg/twitter.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/twitter.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-linkedin{
+  mask: url('/svg/linkedin.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/linkedin.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-whatsapp{
+  mask: url('/svg/whatsapp.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/whatsapp.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-facebook{
+  mask: url('/svg/facebook.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/facebook.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-facebook-flat{
+  mask: url('/svg/facebook-flat.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/facebook-flat.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-instagram{
+  mask: url('/svg/instagram.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/instagram.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-google{
+  mask: url('/svg/google.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/google.svg') no-repeat !important;
+      background-size: contain !important;
+  }
+}
+.icons-plus{
+  mask: url('/svg/plus.svg') no-repeat;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      background: url('/svg/plus.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
 .icons-alert{
-  mask: url('/svg/icon-alert.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/icon-alert.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-close{
-  mask: url('/svg/close.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/close.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-megafone{
-  mask: url('/svg/megafone.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/megafone.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-calendar{
-  mask: url('/svg/calendar.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/calendar.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-clock{
-  mask: url('/svg/icons-clock.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/icons-clock.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-danger{
   mask: url('/svg/alert.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
       background: url('/svg/alert.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-back{
-  mask: url('/svg/back.svg') no-repeat;
+.icons-quotesLeft{
+  mask: url('/svg/quotesLeft.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/back.svg') no-repeat !important;
+      background: url('/svg/quotesLeft.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-next{
-  mask: url('/svg/next.svg') no-repeat;
+.icons-quotesRight{
+  mask: url('/svg/quotesRight.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/next.svg') no-repeat !important;
+      background: url('/svg/quotesRight.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-discord{
-  mask: url('/svg/discord.svg') no-repeat;
+.icons-eye{
+  mask: url('/svg/eye.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/discord.svg') no-repeat !important;
+      background: url('/svg/eye.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-twitch{
-  mask: url('/svg/twitch.svg') no-repeat;
+.icons-calender{
+  mask: url('/svg/calender.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/twitch.svg') no-repeat !important;
+      background: url('/svg/calender.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-tiktok{
-  mask: url('/svg/tiktok.svg') no-repeat;
+.icons-check-yellow{
+  mask: url('/svg/check-yellow.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/tiktok.svg') no-repeat !important;
+      background: url('/svg/check-yellow.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-hbr{
-  mask: url('/svg/hbr.svg') no-repeat;
+.icons-eye{
+  mask: url('/svg/icon-eye.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/hbr.svg') no-repeat !important;
+      background: url('/svg/icon-eye.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-interaktif{
-  mask: url('/svg/interaktif.svg') no-repeat;
+.icons-eye-closed{
+  mask: url('/svg/icon-eye-c.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/interaktif.svg') no-repeat !important;
+      background: url('/svg/icon-eye-c.svg') no-repeat !important;
       background-size: contain !important;
   }
 }
-.icons-izlenme{
-  mask: url('/svg/izlenme.svg') no-repeat;
+.icon-video{
+  mask: url('/svg/icon-video.svg') no-repeat;
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/izlenme.svg') no-repeat !important;
-      background-size: contain !important;
-  }
-}
-.icons-katilimci{
-  mask: url('/svg/katilimci.svg') no-repeat;
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      background: url('/svg/katilimci.svg') no-repeat !important;
+      background: url('/svg/icon-video.svg') no-repeat !important;
       background-size: contain !important;
   }
 }

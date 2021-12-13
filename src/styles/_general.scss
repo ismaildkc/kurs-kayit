@@ -1,32 +1,31 @@
 body, html{
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-	color: var(--primaryDark);
+  background-color: var(--whiteOld);
+	color: var(--black);
   touch-action: pan-y; // disable ios double tab zoom
   -webkit-font-smoothing: antialiased;
   // -webkit-font-smoothing: auto;
-		@media (max-width: 1650px){
-      font-size: 16px;
+		@media (min-width: 1650px){
+			font-size: 16px;
 		}
 		@media (max-width: 1366px){
+			font-size: 14px;
 		}
     @media (max-width: 768px){
       // font-size: 12px;
     }
 }
 
-::-moz-selection { background: var(--mainBlue); }
-::selection { background: var(--mainBlue); }
+::-moz-selection { background: var(--yellow); }
+::selection { background: var(--yellow); }
 
 .container{
   @media (min-width: 1650px){
-    max-width: 1440px;
-  }
-  @media (max-width: 567px){
-    padding-left: 30px;
-    padding-right: 30px;
+    // max-width: 1600px;
   }
 }
-body{
-  background: #fff;
+
+.header-spacer{
+  padding-top: var(--headerSize);
 }

@@ -1,2 +1,0 @@
-# Belediye Kurs Kayıt Sistemi
-

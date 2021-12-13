@@ -1,25 +1,33 @@
 <template>
-  <div>
-    
+  <div class="container">
+    <Banner />
+
+
   </div>
 </template>
 
 <script>
+import Banner from "@/components/Banner"
+
+
+import firebase from "../config/firebase"
 
 export default {
-  name: "home",
-  components: {  },
-  data() {
-    return {
-      
-    };
+  components: {
+    Banner
   },
-  mounted() {
-    
+  mounted(){
+    this.saveDb();
   },
-};
+  methods: {
+    saveDb(){
+      let obj = {
+        name: "Bilge",
+        surnmae: "Yanılmaz",
+        timestamp: new Date()
+      };
+      // console.log(firebase);
+    }
+  }
+}
 </script>
-
-<style lang="scss">
-
-</style>
