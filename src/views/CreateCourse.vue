@@ -5,57 +5,97 @@
         <h2>Kurs Oluştur</h2>
         
         <div class="form-group">
-          <label for="userName">Adı</label>
+          <label for="courseName">Kurs Adı</label>
           <input 
-            v-model="form.userName" 
-            v-on:input="removeSpace"
-            v-bind:class="{error: $v.form.userName.$error, valid: $v.form.userName.$dirty && !$v.form.userName.$invalid}"
+            v-model="form.courseName" 
+            v-bind:class="{error: $v.form.courseName.$error, valid: $v.form.courseName.$dirty && !$v.form.courseName.$invalid}"
             type="text" class="form-control">
-          <p class="form-warning" v-if="!$v.form.userName.nameSurnameLength">En az 2 karakter girmelisiniz</p>
-          <p class="form-warning" v-if="!$v.form.userName.minLength">En az 2 karakter girmelisiniz</p>
-          <p class="form-warning" v-if="!$v.form.userName.required">Bu alan zorunludur.</p>
+          <p class="form-warning" v-if="!$v.form.courseName.minLength">En az 2 karakter girmelisiniz</p>
+          <p class="form-warning" v-if="!$v.form.courseName.required">Bu alan zorunludur.</p>
         </div>
 
         <div class="form-group">
-          <label for="userMail">E-Posta</label>
-          <input 
-            v-model="form.userMail" 
-            v-bind:class="{error: $v.form.userMail.$error, valid: $v.form.userMail.$dirty && !$v.form.userMail.$invalid}"
-            inputmode="email" type="email" class="form-control">
-          <p class="form-warning" v-if="!$v.form.userMail.email">Yanlış mail formatı</p>
-          <p class="form-warning" v-if="!$v.form.userMail.required">Bu alan zorunludur.</p>
+          <label for="description">Açıklama</label>
+          <textarea
+            v-model="form.description"
+            v-bind:class="{
+              error: $v.form.description.$error,
+              valid:
+                $v.form.description.$dirty && !$v.form.description.$invalid,
+            }"
+            type="text"
+            class="form-control"
+          ></textarea>
+          <p class="form-warning" v-if="!$v.form.description.required">
+            Bu alan zorunludur.
+          </p>
+          <p class="form-warning" v-if="!$v.form.description.minLength">
+            En az 10 karakter giriniz.
+          </p>
         </div>
-          
 
-        <div class="form-group password position-relative">
-          <label for="userPass">Şifre</label>
-          <input class="form-control" type="password"
-            v-model="form.userPass" 
-            v-on:input="removeSpace"
-            v-bind:class="{error: $v.form.userPass.$error, valid: $v.form.userPass.$dirty && !$v.form.userPass.$invalid}"
-            >
-          <p class="form-warning" v-if="!$v.form.userPass.required">Bu alan zorunludur.</p>
-          <p class="form-warning" v-if="!$v.form.userPass.minLength">En az 2 karakter girmelisiniz</p>          
+        <div class="row">
+          <div class="form-group col-12 col-md-6">
+            <label for="teacher">Eğitmen</label>
+            <select class="d-block" v-model="form.teacher">
+              <option value="0" disabled selected>Seçiniz</option>
+              <option value="1">Ali Maran</option>
+              <option value="2">Ali Maran</option>
+              <option value="3">Ali Maran</option>
+              <option value="4">Ali Maran</option>
+              <option value="5">Ali Maran</option>
+            </select>
+          </div>
+
+          <div class="form-group col-12 col-md-6">
+            <label for="capacity">Kapasite</label>
+            <input 
+              v-model="form.capacity" 
+              v-bind:class="{error: $v.form.capacity.$error, valid: $v.form.capacity.$dirty && !$v.form.capacity.$invalid}"
+              type="text" class="form-control">
+            <p class="form-warning" v-if="!$v.form.capacity.minLength">En az 2 karakter girmelisiniz</p>
+            <p class="form-warning" v-if="!$v.form.capacity.required">Bu alan zorunludur.</p>
+          </div>
+
         </div>
         
-        <div class="form-group password position-relative">
-          <label for="passRepeat">Şifre Tekrar</label>
-          <input class="form-control" type="password"
-            v-model="form.passRepeat" 
-            v-on:input="removeSpace"
-            v-bind:class="{error: $v.form.passRepeat.$error, valid: $v.form.passRepeat.$dirty && !$v.form.passRepeat.$invalid}"
-            >
-          <p class="form-warning" v-if="!$v.form.passRepeat.sameAsPassword">Şifreler uyuşmuyor.</p>          
+        <div class="form-group">
+          <label for="neighborhood">Mahalle</label>
+          <select class="d-block" v-model="form.neighborhood">
+            <option value="0" disabled selected>Seçiniz</option>
+            <option value="1">Esen Tepe</option>
+            <option value="2">Esen Tepe</option>
+            <option value="3">Esen Tepe</option>
+            <option value="4">Esen Tepe</option>
+            <option value="5">Esen Tepe</option>
+          </select>
         </div>
 
-
-        <label class="custom-checkbox flex-wrap d-flex align-items-center"><a class="mx-1" href="/kvkk" target="_blank">KVKK</a> ve  <a href="/aydinlatma-ve-riza-metni" class="mx-1" target="_blank"> Aydınlatma metnini</a>  okudum, onaylıyorum.
-          <input type="checkbox"
-          v-model="form.kvkk"
-          v-bind:class="{error: $v.form.kvkk.$error, valid: $v.form.kvkk.$dirty && !$v.form.kvkk.$invalid}"
-          >
-          <span class="checkmark"></span>
-        </label>
+        <div class="form-group">
+          <flat-pickr class="form-control" :config="config" v-model="form.dateStart" 
+            v-bind:class="{
+              error: $v.form.dateStart.$error,
+              valid:
+                $v.form.dateStart.$dirty &&
+                !$v.form.dateStart.$invalid,
+            }"></flat-pickr>
+          <p class="form-warning" v-if="$v.form.dateStart.$invalid">
+            Bu alan zorunludur.
+          </p>
+        </div>
+        
+        <div class="form-group">
+          <flat-pickr class="form-control" :config="config" v-model="form.dateEnd" 
+            v-bind:class="{
+              error: $v.form.dateEnd.$error,
+              valid:
+                $v.form.dateEnd.$dirty &&
+                !$v.form.dateEnd.$invalid,
+            }"></flat-pickr>
+          <p class="form-warning" v-if="$v.form.dateEnd.$invalid">
+            Bu alan zorunludur.
+          </p>
+        </div>
         
     
         <Button class="float-right"
@@ -71,68 +111,105 @@
 
 <script>
 import Button from '@/components/Button';
+import {required, minLength} from 'vuelidate/lib/validators';
 
-import {required, email, minLength, sameAs} from 'vuelidate/lib/validators';
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
+import { Turkish } from "flatpickr/dist/l10n/tr.js";
 
-const nameSurnameLength = (value) => {
-  let isValid = true;
-  value.split(" ").forEach(e => {
-    if(e.length < 2){
-      isValid = false;
-    }
-  });
-  return isValid;
-}
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDX67M-FRIYeEVn873F-6MJYU-p6U4ryTw",
+  authDomain: "kurs-kayit-5ada9.firebaseapp.com",
+  projectId: "kurs-kayit-5ada9",
+  storageBucket: "kurs-kayit-5ada9.appspot.com",
+  messagingSenderId: "1069168951720",
+  appId: "1:1069168951720:web:5f7461a4dd66a1ca5a9d9d",
+  measurementId: "G-LFB1RD90RM"
+};
+
+initializeApp(firebaseConfig);
+export const db = getFirestore();
+
+const colRef = collection(db, "courses")
+
+getDocs(colRef).then((snapshot) =>{
+  let data = [];
+  snapshot.docs.forEach((doc) => {
+    data.push({ ...doc.data(), id: doc.id })
+  })
+  return data;
+})
+.catch(err => {
+  console.log(err.message);
+})
+
 
 export default {
-  components: { Button },
+  components: { Button, flatPickr },
   data(){
     return{
       form: {
-        userName: '',
-        userSurname: '',
-        userMail: '',
-        userPass: '',
-        kvkk: false,
+        courseName: '',
+        description: '',
+        teacher: '',
+        capacity: '',
+        dataStart: '',
+        dataEnd: '',
+      },
+      config: {
+        wrap: true, // set wrap to true only when using 'input-group'
+        //altFormat: "m / j / Y",
+        altInput: false,
+        allowInput: false,
+        readOnly: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        locale: Turkish,
       },
     }
   },
   validations: {
     form:{
-      userName: {
-        required,
-        nameSurnameLength,
-        minLength: minLength(2),
-      },
-      userSurname: {
-        required,
-        nameSurnameLength,
-        minLength: minLength(2),
-      },
-      userMail: {
-        required,
-        email: email
-      },
-      userPass: {
+      courseName: {
         required,
         minLength: minLength(2),
       },
-      passRepeat: {
-        sameAsPassword: sameAs('userPass')
+      description: {
+        required,
       },
-      kvkk: { checked: value => value === true },
+      capacity: {
+        required,
+      },
+      teacher: {
+        required
+      },
+      neighborhood: { required },
+      dateStart: { required },
+      dateEnd: { required }
     }
   },
   methods:{
-    removeSpace: function(event){
-      this.form.userName = this.form.userName.replace( /\s\s+/g, ' ' ).trimStart();
-      this.form.userName = this.form.userName.replace(/[0-9`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
-    },
     submitForm(){
       this.$v.$touch();
       console.log(this.$v.form);
       if(!this.$v.form.$invalid){
         // this.getinfoCreate(this.$v.form);
+        addDoc(colRef, {
+          name: this.$v.form.$model.courseName,
+          description: this.$v.form.$model.description,
+          neighborhood: this.$v.form.$model.neighborhood,
+          capacity: this.$v.form.$model.capacity,
+          teacher: this.$v.form.$model.teacher,
+          dateStart: this.$v.form.$model.dataStart,
+          dateEnd: this.$v.form.$model.dataEnd,
+        })
+        .then((err) => {
+          console.log(err);
+        })
       }else{}
     }
   }
@@ -144,7 +221,7 @@ export default {
   min-height: 100vh;
 
   .form-wrapper{
-    max-width: 550px;
+    min-width: 550px;
     background-color: #fff;
     padding: 2rem;
     border-radius: var(--radiusF);

@@ -13,6 +13,7 @@ window.$ = JQuery;
 // import VueFire from "vuefire";
 // Vue.use(VueFire);
 
+
 import api from "@/api";
 
 import Vuelidate from 'vuelidate';

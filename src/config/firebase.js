@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-// import { } from 'firebase/<service>';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import "firebase/firestore";
 
 const firebaseConfig = {
@@ -13,18 +12,21 @@ const firebaseConfig = {
   measurementId: "G-LFB1RD90RM"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+initializeApp(firebaseConfig);
+export const db = getFirestore();
 
+export const getData = (table) => {
+  const colRef = collection(db, "courses")
 
-async function getCities(db) {
-  const citiesCol = collection(db, 'users');
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  console.log("users", cityList)
-  return cityList;
+  getDocs(colRef).then((snapshot) =>{
+    let data = [];
+    snapshot.docs.forEach((doc) => {
+      data.push({ ...doc.data(), id: doc.id })
+    })
+    console.log(data);
+    return data;
+  })
+  .catch(err => {
+    console.log(err.message);
+  })
 }
-
-getCities(db)
-
-// export default app;
