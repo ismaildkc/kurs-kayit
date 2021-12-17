@@ -5,6 +5,7 @@
       
       <nav>
         <router-link class="nav-item" to="/kurs-olustur">Kurs Oluştur</router-link>
+        <router-link class="nav-item" to="/kurslar">Kurslar</router-link>
         <router-link class="nav-item" to="/giris-yap">Giriş Yap</router-link>
       </nav>
     </div>

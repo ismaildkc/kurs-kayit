@@ -22,6 +22,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CreateCourse.vue")
   },
+  {
+    path: "/kurslar",
+    name: "CourseList",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CourseList.vue")
+  },
+  {
+    path: "/kurslar/:slug",
+    name: "Course",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Course.vue")
+  },
   
   // { path: '/:pathMatch(.*)*', redirect: '/404' },
   { path: '*', 

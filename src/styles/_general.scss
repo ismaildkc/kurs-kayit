@@ -26,6 +26,16 @@ body, html{
   }
 }
 
+.page-template{
+  min-height: calc(100vh - var(--headerSize));
+}
 .header-spacer{
   padding-top: var(--headerSize);
+}
+
+.content{
+  margin: 2rem 0;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: var(--radiusF);
 }

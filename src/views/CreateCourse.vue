@@ -2,6 +2,7 @@
   <div class="container d-flex align-items-center justify-content-center">
     <div class="form-wrapper">
       <form @submit.prevent="submitForm" autocomplete="off" class="w-100">
+        
         <h2>Kurs Oluştur</h2>
         
         <div class="form-group">
@@ -35,7 +36,7 @@
         </div>
 
         <div class="row">
-          <div class="form-group col-12 col-md-6">
+          <div class="form-group col-12 col-sm-6">
             <label for="teacher">Eğitmen</label>
             <select class="d-block" v-model="form.teacher">
               <option value="0" disabled selected>Seçiniz</option>
@@ -47,7 +48,7 @@
             </select>
           </div>
 
-          <div class="form-group col-12 col-md-6">
+          <div class="form-group col-12 col-sm-6">
             <label for="capacity">Kapasite</label>
             <input 
               v-model="form.capacity" 
@@ -71,30 +72,35 @@
           </select>
         </div>
 
-        <div class="form-group">
-          <flat-pickr class="form-control" :config="config" v-model="form.dateStart" 
-            v-bind:class="{
-              error: $v.form.dateStart.$error,
-              valid:
-                $v.form.dateStart.$dirty &&
-                !$v.form.dateStart.$invalid,
-            }"></flat-pickr>
-          <p class="form-warning" v-if="$v.form.dateStart.$invalid">
-            Bu alan zorunludur.
-          </p>
-        </div>
-        
-        <div class="form-group">
-          <flat-pickr class="form-control" :config="config" v-model="form.dateEnd" 
-            v-bind:class="{
-              error: $v.form.dateEnd.$error,
-              valid:
-                $v.form.dateEnd.$dirty &&
-                !$v.form.dateEnd.$invalid,
-            }"></flat-pickr>
-          <p class="form-warning" v-if="$v.form.dateEnd.$invalid">
-            Bu alan zorunludur.
-          </p>
+        <div class="row">
+          <div class="form-group col-12 col-sm-6">
+            <label for="teacher">Başlangıç</label>
+            <flat-pickr class="form-control" :config="config" v-model="form.dateStart" 
+              v-bind:class="{
+                error: $v.form.dateStart.$error,
+                valid:
+                  $v.form.dateStart.$dirty &&
+                  !$v.form.dateStart.$invalid,
+              }"></flat-pickr>
+            <p class="form-warning" v-if="$v.form.dateStart.$invalid">
+              Bu alan zorunludur.
+            </p>
+          </div>
+          
+          <div class="form-group col-12 col-sm-6">
+            <label for="teacher">Bitiş</label>
+            <flat-pickr class="form-control" :config="config" v-model="form.dateEnd" 
+              v-bind:class="{
+                error: $v.form.dateEnd.$error,
+                valid:
+                  $v.form.dateEnd.$dirty &&
+                  !$v.form.dateEnd.$invalid,
+              }"></flat-pickr>
+            <p class="form-warning" v-if="$v.form.dateEnd.$invalid">
+              Bu alan zorunludur.
+            </p>
+          </div>
+
         </div>
         
     
@@ -117,36 +123,6 @@ import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import { Turkish } from "flatpickr/dist/l10n/tr.js";
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
-import "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDX67M-FRIYeEVn873F-6MJYU-p6U4ryTw",
-  authDomain: "kurs-kayit-5ada9.firebaseapp.com",
-  projectId: "kurs-kayit-5ada9",
-  storageBucket: "kurs-kayit-5ada9.appspot.com",
-  messagingSenderId: "1069168951720",
-  appId: "1:1069168951720:web:5f7461a4dd66a1ca5a9d9d",
-  measurementId: "G-LFB1RD90RM"
-};
-
-initializeApp(firebaseConfig);
-export const db = getFirestore();
-
-const colRef = collection(db, "courses")
-
-getDocs(colRef).then((snapshot) =>{
-  let data = [];
-  snapshot.docs.forEach((doc) => {
-    data.push({ ...doc.data(), id: doc.id })
-  })
-  return data;
-})
-.catch(err => {
-  console.log(err.message);
-})
-
 
 export default {
   components: { Button, flatPickr },
@@ -161,8 +137,7 @@ export default {
         dataEnd: '',
       },
       config: {
-        wrap: true, // set wrap to true only when using 'input-group'
-        //altFormat: "m / j / Y",
+        wrap: true, 
         altInput: false,
         allowInput: false,
         readOnly: true,
@@ -198,7 +173,7 @@ export default {
       console.log(this.$v.form);
       if(!this.$v.form.$invalid){
         // this.getinfoCreate(this.$v.form);
-        addDoc(colRef, {
+        let dataObj = {
           name: this.$v.form.$model.courseName,
           description: this.$v.form.$model.description,
           neighborhood: this.$v.form.$model.neighborhood,
@@ -206,10 +181,9 @@ export default {
           teacher: this.$v.form.$model.teacher,
           dateStart: this.$v.form.$model.dataStart,
           dateEnd: this.$v.form.$model.dataEnd,
-        })
-        .then((err) => {
-          console.log(err);
-        })
+        }
+
+        this.$api.addDoc("courses", dataObj);
       }else{}
     }
   }

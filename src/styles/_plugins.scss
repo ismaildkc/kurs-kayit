@@ -1,0 +1,13 @@
+// Swiper
+.swiper-carousel{
+  
+  .swiper-wrapper{
+    margin-bottom: 1rem;
+    
+    .swiper-slide{
+      img{
+        border-radius: var(--radiusF);
+      }
+    }
+  }
+}
