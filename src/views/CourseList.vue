@@ -6,16 +6,16 @@
       <div class="row">
         <div class="form-group col-12 col-sm-6">
           <label for="il">Mahalle Seçiniz</label>
-          <select name="il" id="" v-model="selected.neighbourhood" @change="adressFilter(selected.district)">
+          <select name="il" id="" v-model="selected.district" @change="adressFilter(selected.district)">
             <option value="0" disabled selected>Seçiniz</option>
-            <option v-for="(item, index) in location.neighbourhood" :key="index" :value="item.id">{{ item.name }}</option>
+            <option v-for="(item, index) in location.district" :key="index" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
         
         
         <div class="form-group col-12 col-sm-6" v-if="selected.district">
           <label for="ilce">Kültür Merkezi Seçiniz</label>
-          <select name="ilce" id="" v-model="selected.neighbourhood" @change="courseFilter($event)">
+          <select name="ilce" id="" >
             <option value="0" disabled selected>Seçiniz</option>
             <option v-for="(item, index) in selected.neighbourhood" :key="index" :value="item.id">{{ item.name }}</option>
           </select>
@@ -31,6 +31,8 @@
           :CourseName="item.name"
           :Neighbourhood="item.neighborhood" 
           :Description="item.description"
+          :Capacity="item.capacity"
+          :Students="item.students"
           Link="/kurs-detay"
           :Id="item.id"
           Image="/img/kurslar/satranc-1.jpg"
@@ -41,12 +43,13 @@
 </template>
 
 <script>
-import CourseCard from "@/components/CourseCard"
-
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, onSnapshot, doc, query, where } from 'firebase/firestore';
 import "firebase/firestore";
+
+// init services
 export const db = getFirestore();
 
+import CourseCard from "@/components/CourseCard"
 
 export default {
   components: {
@@ -68,19 +71,28 @@ export default {
   },
   methods: {
     courseFilter(event){
-      console.log("event", event.target.value);
+      const colRef = collection(db, 'courses');
+      const q = query(colRef, where("district", "==", "kartal"));
+
+      onSnapshot(q, (snapshot) => {
+        let course = [];
+        snapshot.docs.forEach((doc) => {
+          course.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("bu", course);
+      })
+
     },
     adressFilter(data){
-      console.log("adresfilter", data);
-
+      console.log(data);
       let arr = [];
-      this.selected.neighbourhood = '';
       this.location.neighbourhood.filter((e) => {
         if(e.district_id == data){
-          arr.push(e);
+          arr.push(e)
         }
         this.selected.neighbourhood = arr;
       })
+      
     },
     getAdressData(){
       this.$api.getDocs("location").then(response => {
@@ -88,12 +100,15 @@ export default {
           district: response[0].district,
           neighbourhood: response[0].neighbourhood
         };
+
+        console.log(this.location);
       });
     },
     
     getCourse(){
       this.$api.getDocs("courses").then(response => {
-        this.courses = response
+        this.courses = response;
+        console.log(this.courses);
       });
     }
   }

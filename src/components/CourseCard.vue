@@ -1,37 +1,13 @@
 <template>
-  <!-- <router-link :to="{ name: 'Course', params: { slug: Id } }" :id="Id" class="course-card-wrapper">
-    <div class="course-card d-flex" :style="bgImage">
-      <div class="description">
-        <p>{{ CourseName }} - Neighbourhood</p>
-        <p>{{ Description }}</p>
-      </div>
-    </div>
-  </router-link> -->
   <router-link :to="{ name: 'Course', params: { slug: Id } }" :id="Id" class="course-card d-flex justify-content-between">
     <div class="leftSide d-flex flex-column justify-content-between">
       <div>
         <label>KURS</label>
         <h3>{{ CourseName }}</h3>
-        <h5>11.12.2021 - 11.01.2022</h5>
       </div>
 
       <div class="left-btn d-flex aling-items-center">
-        <a>Detayları gör</a>
-        <svg
-          width="10"
-          height="17"
-          viewBox="0 0 10 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M9 8.5L1.74631 16L1 15.2283L7.50739 8.5L1 1.77172L1.74631 1L9 8.5Z"
-            fill="white"
-            stroke="#ADA5FF"
-          />
-        </svg>
+        <a>11.12.2021 - 11.01.2022</a>
       </div>
     </div>
 
@@ -45,9 +21,9 @@
 
       <div class="box d-flex flex-column align-items-end">
         <div class="progBar">
-          <div class="bar"></div>
+          <div class="bar" :style="barWidth"></div>
         </div>
-        <small>6/9 Kapasite</small>
+        <small><span v-html="Students ? Students.length : '0' "></span> /{{ Capacity }} Kapasite</small>
 
         <div class="btn">Kayıt ol</div>
       </div>
@@ -57,11 +33,10 @@
 
 <script>
 export default {
-  props: ["Image", "CourseName", "Neighbourhood", "Description", "Link", "Id"],
+  props: ["Image", "CourseName", "Neighbourhood", "Description", "Link", "Id", "Capacity", "Students"],
   computed: {
-    bgImage() {
-      return 'background-image: url("' + this.Image + '")';
-      // return 'background-image: url("' + this.Image + '")';
+    barWidth() {
+      return 'width:' + (this.Students.length * 100) / this.Capacity + '%';
     },
   },
 };
@@ -166,7 +141,7 @@ export default {
         overflow: hidden;
 
         .bar {
-          width: 140px;
+          // width: 140px;
           height: 6px;
           background: var(--purple);
           border-radius: 3px;

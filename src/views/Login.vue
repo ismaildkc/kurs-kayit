@@ -39,6 +39,38 @@
           <p class="form-warning" v-if="!$v.form.userMail.email">Yanlış mail formatı</p>
           <p class="form-warning" v-if="!$v.form.userMail.required">Bu alan zorunludur.</p>
         </div>
+
+        <div class="form-group">
+          <label for="userPhone">Telefon Numarası</label>
+          <div class="d-flex">
+            <the-mask name="phone" autocomplete="tel"
+              mask="0(###) ### ## ##"
+              placeholder="(---) --- -- --"
+              v-model="form.userPhone"
+              v-bind:class="{ error: $v.form.userPhone.$error, valid: $v.form.userPhone.$dirty && !$v.form.userPhone.$invalid,}"
+              type="tel"
+              class="form-control"
+            />
+          </div>
+          <p class="form-warning" v-if="!$v.form.userPhone.required">Bu alan zorunludur.</p>
+          <p class="form-warning" v-if="!$v.form.userPhone.minLength">Yanlış telefon formatı</p>
+        </div>
+
+        <div class="form-group">
+          <label for="userTc">TC Kimlik No</label>
+          <the-mask
+            mask="###########"
+            v-model="form.userTc"
+            v-bind:class="{
+              error: $v.form.userTc.$error,
+              valid: $v.form.userTc.$dirty && !$v.form.userTc.$invalid,
+            }"
+            type="tel"
+            class="form-control"
+          />
+          <p class="form-warning" v-if="!$v.form.userTc.required">Bu alan zorunludur.</p>
+          <p class="form-warning" v-if="!$v.form.userTc.minLength">Yanlış format</p>
+        </div>
           
 
         <div class="form-group password position-relative">
@@ -63,7 +95,7 @@
         </div>
 
 
-        <label class="custom-checkbox flex-wrap d-flex align-items-center"><a class="mx-1" href="/kvkk" target="_blank">KVKK</a> ve  <a href="/aydinlatma-ve-riza-metni" class="mx-1" target="_blank"> Aydınlatma metnini</a>  okudum, onaylıyorum.
+        <label class="custom-checkbox flex-wrap d-flex align-items-center"><a class="mx-1" href="/kvkk" target="_blank">KVKK</a>  okudum, onaylıyorum.
           <input type="checkbox"
           v-model="form.kvkk"
           v-bind:class="{error: $v.form.kvkk.$error, valid: $v.form.kvkk.$dirty && !$v.form.kvkk.$invalid}"
@@ -72,15 +104,18 @@
         </label>
         
     
-        <Button class="float-right"
-          Text="Kayıt Ol"
-          :isRouting="false"
-        />
+        <div class="d-flex align-items-center justify-content-between">
+          <p v-if="formMessage">Kaydını alındı.</p>
+          <Button class="ml-auto"
+            Text="Kayıt Ol"
+            :isRouting="false"
+          />
+        </div>
 
       </form>
 
       <!-- SignIn For -->
-      <form @submit.prevent="submitForm" v-else-if="login" autocomplete="off" class="w-100">
+      <form @submit.prevent="signIn" v-else-if="login" autocomplete="off" class="w-100">
         <h2>Giriş Yap</h2>
                   
         <div class="form-group">
@@ -122,6 +157,29 @@ import Button from '@/components/Button';
 
 import {required, email, minLength, sameAs} from 'vuelidate/lib/validators';
 
+const checkTcNum = function (value) {
+  if (value.length > 0) {
+    value = value.toString();
+    var isEleven = /^[0-9]{11}$/.test(value);
+    var totalX = 0;
+    for (var i = 0; i < 10; i++) {
+      totalX += Number(value.substr(i, 1));
+    }
+    var isRuleX = totalX % 10 == value.substr(10, 1);
+    var totalY1 = 0;
+    var totalY2 = 0;
+    for (var i = 0; i < 10; i += 2) {
+      totalY1 += Number(value.substr(i, 1));
+    }
+    for (var i = 1; i < 10; i += 2) {
+      totalY2 += Number(value.substr(i, 1));
+    }
+    var isRuleY = (totalY1 * 7 - totalY2) % 10 == value.substr(9, 0);
+    return isEleven && isRuleX && isRuleY;
+  }
+  return true;
+};
+
 const nameSurnameLength = (value) => {
   let isValid = true;
   value.split(" ").forEach(e => {
@@ -137,10 +195,13 @@ export default {
   data(){
     return{
       login: false,
+      formMessage: false,
       form: {
         userName: '',
         userSurname: '',
         userMail: '',
+        userPhone: '',
+        userTc: '',
         userPass: '',
         kvkk: false,
       },
@@ -165,6 +226,14 @@ export default {
       userMail: {
         required,
         email: email
+      },
+      userPhone: {
+        required,
+        minLength: minLength(10),
+      },
+      userTc: {
+        required,
+        checkTcNum,
       },
       userPass: {
         required,
@@ -191,11 +260,33 @@ export default {
       this.form.userName = this.form.userName.replace( /\s\s+/g, ' ' ).trimStart();
       this.form.userName = this.form.userName.replace(/[0-9`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
     },
+    signIn(){
+      this.$v.$touch();
+      if(!this.$v.formLogin.$invalid){
+        console.log(this.$v.formLogin);
+        this.$api.signIn();
+        // this.getinfoCreate(this.$v.formLogin);
+      }else{}
+    },
     submitForm(){
       this.$v.$touch();
-      console.log(this.$v.form);
       if(!this.$v.form.$invalid){
-        // this.getinfoCreate(this.$v.form);
+        console.log(this.$v.form);
+        
+        let form = {
+          email: this.$v.form.$model.userMail,
+          password: this.$v.form.$model.userPass,
+          name: this.$v.form.$model.userName,
+          surname: this.$v.form.$model.userSurname,
+          isActive: true,
+          phone: this.$v.form.$model.userPhone,
+          // displayName: this.$v.form.$model.userName + this.$v.form.$model.userSurname,
+          // phoneNumber: this.$v.form.$model.userPhone,
+        }
+        // this.$api.createUser(form.email, form.password);
+        this.$api.addDoc("teachers", form);
+        this.formMessage = true;
+        
       }else{}
     }
   }
@@ -211,6 +302,12 @@ export default {
     background-color: #fff;
     padding: 2rem;
     border-radius: var(--radiusF);
+  }
+
+  @media (max-width: 567px) {
+    .form-wrapper{
+      min-width: unset
+    }
   }
 }
 </style>

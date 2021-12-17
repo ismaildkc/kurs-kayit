@@ -1,19 +1,16 @@
 <template>
-  <div class="banner">
-    <div class="swiper-banner swiper-carousel swiper">
+  <div class="news" v-if="data">
+    <div class="swiper-news swiper-carousel swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="/img/kurslar/satranc-1.jpg">
+        
+        <div class="swiper-slide" v-for="(item, index) in data" :key="index">
+          <img src="/img/kurslar/10kasim.jpg">
+          <div class="description">
+            <h4>{{ data.title }}</h4>
+            <p>{{ data.description }}</p>
+          </div>
         </div>
-        <div class="swiper-slide">
-          <img src="/img/kurslar/voleybol-1.jpg">
-        </div>
-        <div class="swiper-slide">
-          <img src="/img/kurslar/nakis-1.jpg">
-        </div>
-        <div class="swiper-slide">
-          <img src="/img/kurslar/satranc-2.jpg">
-        </div>
+
       </div>
 
       <div class="swiper-pagination" slot="pagination"></div>
@@ -28,13 +25,14 @@ import "swiper/swiper-bundle.css";
 
 
 export default {
+  props: [ "data" ],
   mounted() {
     this.getSwiper();
   },
   methods: {
     getSwiper() {
       setTimeout(() => {
-        this.swiperModal = new Swiper(".swiper-banner", {
+        this.swiperModal = new Swiper(".swiper-news", {
           spaceBetween: 16,
           allowTouchMove: true,
           paginationClickable: true,
@@ -52,19 +50,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.banner{
+.news{
   width: 100%;
-  max-height: 500px;
-  overflow: hidden;
-  // height: 350px;
-  .swiper-wrapper{
-    height: 100%;
+  height: 350px;
+  
+  .swiper-news{
+    position: relative;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .description{
+      position: absolute;
+      background: rgba(227,227,227, .8);
+      bottom: 0;
+      left: 0;
+      padding: 1rem;
+      h4{
+        font-weight: 500;
+      }
+
+      p{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
   }
 
-  img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 </style>

@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import "firebase/firestore";
-export const db = getFirestore();
 
-let URL = 'https://bilimseferberligi.org/cms/api/v1/';
+// init services
+export const db = getFirestore();
+export const auth = getAuth();
+
+import { getData } from "./config/firebase";
 
 export default {
   timestampConvert(seconds){
@@ -38,12 +42,69 @@ export default {
       console.log(err.message);
     })
   },
+  onsnapshot(toTable){
+    const colRef = collection(db, toTable);
+    let data = [];
+    return onSnapshot(colRef, (snapshot) =>{
+      snapshot.docs.forEach((doc) => {
+        data.push({...doc.data(), id: doc.id})
+      })
+      return data
+    })
+  },
   addDoc(toTable, dataObj){
     const colRef = collection(db, toTable);
     
     addDoc(colRef, dataObj)
     .then((err) => {
+      dataObj.reset;
       console.log(err);
+    })
+  },
+  deleteDoc(fromTable, dataObj){
+    const docRef = doc(db, fromTable, dataObj);
+    
+    deleteDoc(docRef)
+    .then((err) => {
+      dataObj.reset;
+      console.log(err);
+    })
+  },
+  createUser(email, password){
+    // const email = "ismail@dikici.com";
+    // const password = "123456";
+    createUserWithEmailAndPassword(auth, email, password )
+    .then((cred) => {
+      console.log("user created: ",cred.user);
+    })
+    .catch(err => {
+      console.log(err.message);
+    })
+  },
+  signOut(){
+    signOut(auth).then(() => {
+      console.log("user signed out...");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+  },
+  signIn(){
+    const email = "ismail@dikici.com";
+    const password = "123456";
+    console.log(email);
+    
+    signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log(cred);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+  },
+  authStateChange(){
+    onAuthStateChanged(auth, (user) => {
+      console.log("user state", user);
     })
   },
 

@@ -1,10 +1,14 @@
 <template>
   <div class="container">
     <div class="content">
-      <h1>{{ course.name }}</h1>
+      <div class="d-flex justify-content-between">
+        <h1>{{ course.name }}</h1>
+
+        <div class="btn">Başvur</div>
+      </div>
 
       <div class="row mt-4">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8 mb-5">
           <div class="swiper-course swiper-carousel swiper">
             <div class="swiper-wrapper">
               <div
@@ -20,42 +24,43 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6">
+
+        <div class="col-12">
           <!-- Info Card -->
           <div class="course-info">
             <div class="course-detail">
               <div class="lines d-flex">
-                <p>Hakkında:</p>
+                <p class="title">Hakkında:</p>
                 <span>{{ course.description }}</span>
               </div>
 
               <div class="lines d-flex">
-                <p>Kapasite:</p>
+                <p class="title">Kapasite:</p>
                 <span>{{ course.capacity }}</span>
               </div>
 
               <div class="lines d-flex">
-                <p>Başlangıç:</p>
+                <p class="title">Başlangıç:</p>
                 <span v-html="startDate"></span>
               </div>
 
               <div class="lines d-flex">
-                <p>Bitiş:</p>
+                <p class="title">Bitiş:</p>
                 <span v-html="endtDate"></span>
               </div>
 
               <div class="lines d-flex">
-                <p>İlçe:</p>
+                <p class="title">İlçe:</p>
                 <span>{{ course.district }}</span>
               </div>
 
               <div class="lines d-flex">
-                <p>Mahalle:</p>
+                <p class="title">Mahalle:</p>
                 <span>{{ course.neighbourhodd }}</span>
               </div>
 
               <div class="lines d-flex">
-                <p>Eğitmenler:</p>
+                <p class="title">Eğitmenler:</p>
                 <span v-for="(item, index) in course.teacher" :key="index">{{
                   item
                 }}</span>
@@ -64,24 +69,7 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="prduct-detail-info d-flex flex-column flex-md-row mb-5">
-        <div class="sides">
-          <h3>Cross Code</h3>
-          <p>CONTITECH FS 70-7 2681 015 000</p>
-          <p>WEFORMA WBE 200-E1</p>
-          <p>BOSCH 822419002</p>
-          <p>FESTO EB 165 65</p>
-          <p>AIRKRAFT 111002</p>
-        </div>
-
-        <div class="sides">
-          <h3>OEM Part No</h3>
-          <p>SAF 3.229.0027.00</p>
-          <p>3.229.2127.00</p>
-          <p>3.229.2227.00</p>
-        </div>
-      </div> -->
+      
     </div>
 
     
@@ -117,6 +105,7 @@ import {
   getDocs,
   addDoc,
   query,
+  doc,
   where,
   onSnapshot,
 } from "firebase/firestore";
@@ -137,27 +126,14 @@ export default {
   },
   methods: {
     getCourseData() {
-      const colRef = collection(db, "courses");
-      // console.log("slug", this.$route.params.slug);
-      // queries
-      const q = query(
-        colRef,
-        where("id", "==", parseInt(this.$route.params.slug))
-      );
-
-      onSnapshot(q, (snapshot) => {
-        let course = [];
-        snapshot.docs.forEach((doc) => {
-          course.push({ ...doc.data(), id: doc.id });
-        });
-        this.course = course[0];
-
-        this.startDate = this.$api.timestampConvert(
-          this.course.startDate.seconds
-        );
-        this.endtDate = this.$api.timestampConvert(this.course.endDate.seconds);
-
+      const docRef = doc(db, "courses", this.$route.params.slug);
+      
+      onSnapshot(docRef, (doc) => {
+        this.course = doc.data();
         console.log("course", this.course);
+
+        this.startDate = this.$api.timestampConvert(this.course.startDate.seconds);
+        this.endtDate = this.$api.timestampConvert(this.course.endDate.seconds);
       });
     },
     getSwiper() {
@@ -181,4 +157,31 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.lines{
+  border-bottom: 1px solid #ebebeb;
+  padding: 1rem 0;
+  .title{
+    font-weight: 600;
+    margin-right: .5rem;
+  }
+}
+
+.btn{
+  width: 161px;
+  height: 47px;
+  background: var(--purple);
+  box-shadow: 0px 15px 20px -10px rgba(71,62,166, .55);
+  border-radius: 28.5px;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 25px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.3s;
+  user-select: none;
+}
 </style>

@@ -174,6 +174,7 @@ export default {
       if(!this.$v.form.$invalid){
         // this.getinfoCreate(this.$v.form);
         let dataObj = {
+          // id: 1,
           name: this.$v.form.$model.courseName,
           description: this.$v.form.$model.description,
           neighborhood: this.$v.form.$model.neighborhood,
@@ -181,6 +182,7 @@ export default {
           teacher: this.$v.form.$model.teacher,
           dateStart: this.$v.form.$model.dataStart,
           dateEnd: this.$v.form.$model.dataEnd,
+          students: [],
         }
 
         this.$api.addDoc("courses", dataObj);
