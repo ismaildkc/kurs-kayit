@@ -4,13 +4,52 @@
       <div><router-link to="/" class="logo"><img src="/img/kartal-logo.png" alt=""></router-link></div>
       
       <nav>
-        <router-link class="nav-item" to="/kurs-olustur">Kurs Oluştur</router-link>
+        <!-- <router-link class="nav-item" to="/kurs-olustur">Kurs Oluştur</router-link> -->
         <router-link class="nav-item" to="/kurslar">Kurslar</router-link>
-        <router-link class="nav-item" to="/giris-yap">Giriş Yap</router-link>
+        <router-link class="nav-item" to="/kurslar">Kültür Merkezleri</router-link>
+        <router-link class="nav-item" to="/giris-yap" v-if="!isLogedin">Giriş Yap</router-link>
+        <span class="nav-item" v-if="isLogedin" @click="signOut">Çıkış Yap</span>
       </nav>
     </div>
   </header>
 </template>
+
+<script>
+import { getFirestore } from 'firebase/firestore';
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
+import "firebase/firestore";
+
+// init services
+export const db = getFirestore();
+export const auth = getAuth();
+import { getData } from "../config/firebase";
+
+export default {
+  data() {
+    return{
+      isLogedin: false
+    }
+  },
+  mounted(){
+    onAuthStateChanged(auth, (user) => {
+      // console.log("user state", user);
+      this.$store.commit("_userInfo", user);
+      this.isLogedin = this.$store.state.userInfo ? this.$store.state.userInfo.emailVerified : false
+    })
+  },
+  methods: {
+    signOut(){
+      signOut(auth)
+      .then(() => {
+        console.log("signed out.");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 header{
@@ -31,6 +70,12 @@ header{
   nav{
     .nav-item{
       padding: 0 1rem;
+      border-bottom: 1px solid transparent;
+
+      // &.router-link-active{
+      //   border-bottom: 1px solid #000;
+      // }
+
     }
   }
 }

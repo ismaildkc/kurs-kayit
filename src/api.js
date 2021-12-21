@@ -89,24 +89,6 @@ export default {
       console.log(err.message);
     })
   },
-  signIn(){
-    const email = "ismail@dikici.com";
-    const password = "123456";
-    console.log(email);
-    
-    signInWithEmailAndPassword(auth, email, password)
-    .then((cred) => {
-      console.log(cred);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    })
-  },
-  authStateChange(){
-    onAuthStateChanged(auth, (user) => {
-      console.log("user state", user);
-    })
-  },
 
 
   infoCreate(data) {

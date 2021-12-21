@@ -1,121 +1,9 @@
 <template>
   <div class="container d-flex align-items-center justify-content-center">
     <div class="form-wrapper">
-      <form @submit.prevent="submitForm" v-if="!login" autocomplete="off" class="w-100">
-        <h2>Kayıt Ol</h2>
-        
-        <div class="row">
-          <div class="form-group col-12 col-md-6">
-            <label for="userName">Adınız</label>
-            <input 
-              v-model="form.userName" 
-              v-on:input="removeSpace"
-              v-bind:class="{error: $v.form.userName.$error, valid: $v.form.userName.$dirty && !$v.form.userName.$invalid}"
-              type="text" class="form-control">
-            <p class="form-warning" v-if="!$v.form.userName.nameSurnameLength">En az 2 karakter girmelisiniz</p>
-            <p class="form-warning" v-if="!$v.form.userName.minLength">En az 2 karakter girmelisiniz</p>
-            <p class="form-warning" v-if="!$v.form.userName.required">Bu alan zorunludur.</p>
-          </div>
-          
-          <div class="form-group col-12 col-md-6">
-            <label for="userSurname">Soyadınız</label>
-            <input 
-              v-model="form.userSurname" 
-              v-on:input="removeSpace"
-              v-bind:class="{error: $v.form.userSurname.$error, valid: $v.form.userSurname.$dirty && !$v.form.userSurname.$invalid}"
-              type="text" class="form-control">
-            <p class="form-warning" v-if="!$v.form.userSurname.nameSurnameLength">En az 2 karakter girmelisiniz</p>
-            <p class="form-warning" v-if="!$v.form.userSurname.minLength">En az 2 karakter girmelisiniz</p>
-            <p class="form-warning" v-if="!$v.form.userSurname.required">Bu alan zorunludur.</p>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="userMail">E-Posta</label>
-          <input 
-            v-model="form.userMail" 
-            v-bind:class="{error: $v.form.userMail.$error, valid: $v.form.userMail.$dirty && !$v.form.userMail.$invalid}"
-            inputmode="email" type="email" class="form-control">
-          <p class="form-warning" v-if="!$v.form.userMail.email">Yanlış mail formatı</p>
-          <p class="form-warning" v-if="!$v.form.userMail.required">Bu alan zorunludur.</p>
-        </div>
-
-        <div class="form-group">
-          <label for="userPhone">Telefon Numarası</label>
-          <div class="d-flex">
-            <the-mask name="phone" autocomplete="tel"
-              mask="0(###) ### ## ##"
-              placeholder="(---) --- -- --"
-              v-model="form.userPhone"
-              v-bind:class="{ error: $v.form.userPhone.$error, valid: $v.form.userPhone.$dirty && !$v.form.userPhone.$invalid,}"
-              type="tel"
-              class="form-control"
-            />
-          </div>
-          <p class="form-warning" v-if="!$v.form.userPhone.required">Bu alan zorunludur.</p>
-          <p class="form-warning" v-if="!$v.form.userPhone.minLength">Yanlış telefon formatı</p>
-        </div>
-
-        <div class="form-group">
-          <label for="userTc">TC Kimlik No</label>
-          <the-mask
-            mask="###########"
-            v-model="form.userTc"
-            v-bind:class="{
-              error: $v.form.userTc.$error,
-              valid: $v.form.userTc.$dirty && !$v.form.userTc.$invalid,
-            }"
-            type="tel"
-            class="form-control"
-          />
-          <p class="form-warning" v-if="!$v.form.userTc.required">Bu alan zorunludur.</p>
-          <p class="form-warning" v-if="!$v.form.userTc.minLength">Yanlış format</p>
-        </div>
-          
-
-        <div class="form-group password position-relative">
-          <label for="userPass">Şifre</label>
-          <input class="form-control" type="password"
-            v-model="form.userPass" 
-            v-on:input="removeSpace"
-            v-bind:class="{error: $v.form.userPass.$error, valid: $v.form.userPass.$dirty && !$v.form.userPass.$invalid}"
-            >
-          <p class="form-warning" v-if="!$v.form.userPass.required">Bu alan zorunludur.</p>
-          <p class="form-warning" v-if="!$v.form.userPass.minLength">En az 2 karakter girmelisiniz</p>          
-        </div>
-        
-        <div class="form-group password position-relative">
-          <label for="passRepeat">Şifre Tekrar</label>
-          <input class="form-control" type="password"
-            v-model="form.passRepeat" 
-            v-on:input="removeSpace"
-            v-bind:class="{error: $v.form.passRepeat.$error, valid: $v.form.passRepeat.$dirty && !$v.form.passRepeat.$invalid}"
-            >
-          <p class="form-warning" v-if="!$v.form.passRepeat.sameAsPassword">Şifreler uyuşmuyor.</p>          
-        </div>
-
-
-        <label class="custom-checkbox flex-wrap d-flex align-items-center"><a class="mx-1" href="/kvkk" target="_blank">KVKK</a>  okudum, onaylıyorum.
-          <input type="checkbox"
-          v-model="form.kvkk"
-          v-bind:class="{error: $v.form.kvkk.$error, valid: $v.form.kvkk.$dirty && !$v.form.kvkk.$invalid}"
-          >
-          <span class="checkmark"></span>
-        </label>
-        
-    
-        <div class="d-flex align-items-center justify-content-between">
-          <p v-if="formMessage">Kaydını alındı.</p>
-          <Button class="ml-auto"
-            Text="Kayıt Ol"
-            :isRouting="false"
-          />
-        </div>
-
-      </form>
-
+      
       <!-- SignIn For -->
-      <form @submit.prevent="signIn" v-else-if="login" autocomplete="off" class="w-100">
+      <form @submit.prevent="signIn" autocomplete="off" class="w-100">
         <h2>Giriş Yap</h2>
                   
         <div class="form-group">
@@ -133,20 +21,24 @@
           <label for="userPass">Şifre</label>
           <input class="form-control" type="password"
             v-model="formLogin.userPass" 
-            v-on:input="removeSpace"
             v-bind:class="{error: $v.formLogin.userPass.$error, valid: $v.formLogin.userPass.$dirty && !$v.formLogin.userPass.$invalid}"
             >
           <p class="form-warning" v-if="!$v.formLogin.userPass.required">Bu alan zorunludur.</p>
           <p class="form-warning" v-if="!$v.formLogin.userPass.minLength">En az 2 karakter girmelisiniz</p>          
         </div>
+
+        <div class="d-flex align-items-center justify-content-between">
+          <p>Üye değilsen <router-link to="kayit-ol" class="text-underline">Kayıt ol</router-link></p>
+
+          <Button class="float-right"
+            Text="Giriş Yap"
+            :isRouting="false"
+          />
+        </div>
         
-    
-        <Button class="float-right"
-          Text="Giriş Yap"
-          :isRouting="false"
-        />
 
       </form>
+
     </div>
 
   </div>
@@ -154,6 +46,14 @@
 
 <script>
 import Button from '@/components/Button';
+
+import { getFirestore } from 'firebase/firestore';
+import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import "firebase/firestore";
+
+// init services
+export const db = getFirestore();
+export const auth = getAuth();
 
 import {required, email, minLength, sameAs} from 'vuelidate/lib/validators';
 
@@ -194,17 +94,8 @@ export default {
   components: { Button },
   data(){
     return{
-      login: false,
+      login: true,
       formMessage: false,
-      form: {
-        userName: '',
-        userSurname: '',
-        userMail: '',
-        userPhone: '',
-        userTc: '',
-        userPass: '',
-        kvkk: false,
-      },
       formLogin: {
         userMail: '',
         userPass: '',
@@ -212,38 +103,6 @@ export default {
     }
   },
   validations: {
-    form:{
-      userName: {
-        required,
-        nameSurnameLength,
-        minLength: minLength(2),
-      },
-      userSurname: {
-        required,
-        nameSurnameLength,
-        minLength: minLength(2),
-      },
-      userMail: {
-        required,
-        email: email
-      },
-      userPhone: {
-        required,
-        minLength: minLength(10),
-      },
-      userTc: {
-        required,
-        checkTcNum,
-      },
-      userPass: {
-        required,
-        minLength: minLength(2),
-      },
-      passRepeat: {
-        sameAsPassword: sameAs('userPass')
-      },
-      kvkk: { checked: value => value === true },
-    },
     formLogin:{
       userMail: {
         required,
@@ -256,39 +115,31 @@ export default {
     }
   },
   methods:{
-    removeSpace: function(event){
-      this.form.userName = this.form.userName.replace( /\s\s+/g, ' ' ).trimStart();
-      this.form.userName = this.form.userName.replace(/[0-9`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
-    },
     signIn(){
       this.$v.$touch();
       if(!this.$v.formLogin.$invalid){
-        console.log(this.$v.formLogin);
-        this.$api.signIn();
+        
+        signInWithEmailAndPassword(auth, this.$v.formLogin.$model.userMail, this.$v.formLogin.$model.userPass)
+          .then((cred) => {
+            console.log("user login:", cred.user);
+            this.$store.commit("_userInfo", cred.user);
+            localStorage.setItem("_userInfo", JSON.stringify(cred.user));
+          })
+          .catch((err) => {
+            console.log(err.message);
+          })
         // this.getinfoCreate(this.$v.formLogin);
       }else{}
     },
-    submitForm(){
-      this.$v.$touch();
-      if(!this.$v.form.$invalid){
-        console.log(this.$v.form);
-        
-        let form = {
-          email: this.$v.form.$model.userMail,
-          password: this.$v.form.$model.userPass,
-          name: this.$v.form.$model.userName,
-          surname: this.$v.form.$model.userSurname,
-          isActive: true,
-          phone: this.$v.form.$model.userPhone,
-          // displayName: this.$v.form.$model.userName + this.$v.form.$model.userSurname,
-          // phoneNumber: this.$v.form.$model.userPhone,
-        }
-        // this.$api.createUser(form.email, form.password);
-        this.$api.addDoc("teachers", form);
-        this.formMessage = true;
-        
-      }else{}
-    }
+    signOut(){
+      signOut(auth)
+      .then(() => {
+        console.log("signed out.");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+    },
   }
 }
 </script>

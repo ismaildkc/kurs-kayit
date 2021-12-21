@@ -71,10 +71,22 @@
             <option value="5">Esen Tepe</option>
           </select>
         </div>
+        
+        <div class="form-group">
+          <label for="neighborhood">Kültür Merkezi</label>
+          <select class="d-block">
+            <option value="0" disabled selected>Seçiniz</option>
+            <option value="1">Esen Tepe</option>
+            <option value="2">Esen Tepe</option>
+            <option value="3">Esen Tepe</option>
+            <option value="4">Esen Tepe</option>
+            <option value="5">Esen Tepe</option>
+          </select>
+        </div>
 
         <div class="row">
           <div class="form-group col-12 col-sm-6">
-            <label for="teacher">Başlangıç</label>
+            <label for="teacher">Kurs Başlangıç</label>
             <flat-pickr class="form-control" :config="config" v-model="form.dateStart" 
               v-bind:class="{
                 error: $v.form.dateStart.$error,
@@ -88,7 +100,38 @@
           </div>
           
           <div class="form-group col-12 col-sm-6">
-            <label for="teacher">Bitiş</label>
+            <label for="teacher">Kurs Bitiş</label>
+            <flat-pickr class="form-control" :config="config" v-model="form.dateEnd" 
+              v-bind:class="{
+                error: $v.form.dateEnd.$error,
+                valid:
+                  $v.form.dateEnd.$dirty &&
+                  !$v.form.dateEnd.$invalid,
+              }"></flat-pickr>
+            <p class="form-warning" v-if="$v.form.dateEnd.$invalid">
+              Bu alan zorunludur.
+            </p>
+          </div>
+
+        </div>
+        
+        <div class="row">
+          <div class="form-group col-12 col-sm-6">
+            <label for="teacher">Kayıt Başlangıç</label>
+            <flat-pickr class="form-control" :config="config" v-model="form.dateStart" 
+              v-bind:class="{
+                error: $v.form.dateStart.$error,
+                valid:
+                  $v.form.dateStart.$dirty &&
+                  !$v.form.dateStart.$invalid,
+              }"></flat-pickr>
+            <p class="form-warning" v-if="$v.form.dateStart.$invalid">
+              Bu alan zorunludur.
+            </p>
+          </div>
+          
+          <div class="form-group col-12 col-sm-6">
+            <label for="teacher">Kayıt Bitiş</label>
             <flat-pickr class="form-control" :config="config" v-model="form.dateEnd" 
               v-bind:class="{
                 error: $v.form.dateEnd.$error,

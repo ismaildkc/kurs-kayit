@@ -17,6 +17,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Login.vue")
   },
   {
+    path: "/kayit-ol",
+    name: "SignUp",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/SignUp.vue")
+  },
+  {
     path: "/kurs-olustur",
     name: "CreateCourse",
     component: () =>
@@ -45,6 +51,7 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   linkExactActiveClass: 'active',
+  linkExactActiveClass: "exact-active",
   base: process.env.BASE_URL,
   routes,
 });

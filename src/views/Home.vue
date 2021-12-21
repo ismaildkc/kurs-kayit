@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <!-- Banne -->
+    <!-- Banner -->
     <Banner />
 
     <!-- Kurs Seçimi -->

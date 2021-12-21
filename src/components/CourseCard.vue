@@ -15,7 +15,7 @@
       <div class="title">
         <h5>Başvuru Tarihleri</h5>
         <h5>11.12.2021 - 11.01.2022</h5>
-        <h3>Lorem Ipsum</h3>
+        <!-- <h3>Lorem Ipsum</h3> -->
         <p>{{ Description }}</p>
       </div>
 

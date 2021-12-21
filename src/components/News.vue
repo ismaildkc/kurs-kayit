@@ -4,7 +4,7 @@
       <div class="swiper-wrapper">
         
         <div class="swiper-slide" v-for="(item, index) in data" :key="index">
-          <img src="/img/kurslar/10kasim.jpg">
+          <img :src="data.photo[0]">
           <div class="description">
             <h4>{{ data.title }}</h4>
             <p>{{ data.description }}</p>
