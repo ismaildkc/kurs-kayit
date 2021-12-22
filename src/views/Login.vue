@@ -47,7 +47,7 @@
 <script>
 import Button from '@/components/Button';
 
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, onSnapshot, doc, query, where } from 'firebase/firestore';
 import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 import "firebase/firestore";
 
@@ -56,39 +56,6 @@ export const db = getFirestore();
 export const auth = getAuth();
 
 import {required, email, minLength, sameAs} from 'vuelidate/lib/validators';
-
-const checkTcNum = function (value) {
-  if (value.length > 0) {
-    value = value.toString();
-    var isEleven = /^[0-9]{11}$/.test(value);
-    var totalX = 0;
-    for (var i = 0; i < 10; i++) {
-      totalX += Number(value.substr(i, 1));
-    }
-    var isRuleX = totalX % 10 == value.substr(10, 1);
-    var totalY1 = 0;
-    var totalY2 = 0;
-    for (var i = 0; i < 10; i += 2) {
-      totalY1 += Number(value.substr(i, 1));
-    }
-    for (var i = 1; i < 10; i += 2) {
-      totalY2 += Number(value.substr(i, 1));
-    }
-    var isRuleY = (totalY1 * 7 - totalY2) % 10 == value.substr(9, 0);
-    return isEleven && isRuleX && isRuleY;
-  }
-  return true;
-};
-
-const nameSurnameLength = (value) => {
-  let isValid = true;
-  value.split(" ").forEach(e => {
-    if(e.length < 2){
-      isValid = false;
-    }
-  });
-  return isValid;
-}
 
 export default {
   components: { Button },
@@ -124,12 +91,27 @@ export default {
             console.log("user login:", cred.user);
             this.$store.commit("_userInfo", cred.user);
             localStorage.setItem("_userInfo", JSON.stringify(cred.user));
+            this.getThisUser(cred.user.email)
           })
           .catch((err) => {
             console.log(err.message);
           })
         // this.getinfoCreate(this.$v.formLogin);
       }else{}
+    },
+    getThisUser(email){
+      console.log("email", email)
+      const colRef = collection(db, 'users');
+      const q = query(colRef, where("email", "==", email));
+
+      onSnapshot(q, (snapshot) => {
+        let course = [];
+        snapshot.docs.forEach((doc) => {
+          course.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("bu", course);
+      })
+
     },
     signOut(){
       signOut(auth)

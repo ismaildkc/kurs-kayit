@@ -6,7 +6,7 @@
       <nav>
         <!-- <router-link class="nav-item" to="/kurs-olustur">Kurs Oluştur</router-link> -->
         <router-link class="nav-item" to="/kurslar">Kurslar</router-link>
-        <router-link class="nav-item" to="/kurslar">Kültür Merkezleri</router-link>
+        <router-link class="nav-item" to="/kultur-merkezleri">Kültür Merkezleri</router-link>
         <router-link class="nav-item" to="/giris-yap" v-if="!isLogedin">Giriş Yap</router-link>
         <span class="nav-item" v-if="isLogedin" @click="signOut">Çıkış Yap</span>
       </nav>

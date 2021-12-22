@@ -4,20 +4,20 @@
       <h1>Kurs Ara</h1>
 
       <div class="row">
-        <div class="form-group col-12 col-sm-6">
+        <!-- <div class="form-group col-12 col-sm-6">
           <label for="il">Mahalle Seçiniz</label>
           <select name="il" id="" v-model="selected.district" @change="adressFilter(selected.district)">
             <option value="0" disabled selected>Seçiniz</option>
             <option v-for="(item, index) in location.district" :key="index" :value="item.id">{{ item.name }}</option>
           </select>
-        </div>
+        </div> -->
         
         
-        <div class="form-group col-12 col-sm-6" v-if="selected.district">
-          <label for="ilce">Kültür Merkezi Seçiniz</label>
-          <select name="ilce" id="" >
+        <div class="form-group col-12 col-sm-6">
+          <label for="neighbourhood">Mahalle Seçiniz</label>
+          <select name="neighbourhood" id="" >
             <option value="0" disabled selected>Seçiniz</option>
-            <option v-for="(item, index) in selected.neighbourhood" :key="index" :value="item.id">{{ item.name }}</option>
+            <option v-for="(item, index) in neighbourhoodKartal" :key="index" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
         
@@ -59,6 +59,7 @@ export default {
     return{
       courses: '',
       location: '',
+      neighbourhoodKartal: [],
       selected: {
         district: '',
         neighbourhood: '',
@@ -68,6 +69,7 @@ export default {
   mounted(){
     this.getCourse();
     this.getAdressData();
+    this.getCourseCenter();
   },
   methods: {
     courseFilter(event){
@@ -100,15 +102,28 @@ export default {
           district: response[0].district,
           neighbourhood: response[0].neighbourhood
         };
-
-        console.log(this.location);
+        let arr = [];
+        this.neighbourhoodKartal = this.location.neighbourhood.map((v) => {
+          if(v.district_id == 1){
+            arr.push(v)
+          }
+        })
+        this.neighbourhoodKartal = arr;
+        console.log(this.neighbourhoodKartal);
+        // console.log(this.location);
+      });
+    },
+    getCourseCenter(){
+      this.$api.getDocs("course-center").then(response => {
+        this.courseCenters = response;
+        console.log(this.courseCenters);
       });
     },
     
     getCourse(){
       this.$api.getDocs("courses").then(response => {
         this.courses = response;
-        console.log(this.courses);
+        // console.log(this.courses);
       });
     }
   }
